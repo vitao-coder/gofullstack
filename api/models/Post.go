@@ -12,10 +12,10 @@ import (
 //Post : Entidade Post do sistema
 type Post struct {
 	ID           uint64    `gorm:"primary_key;auto_increment" json:"id"`
-	Titulo       string    `gorm:"size:255;not null;unique" json:"title"`
-	Conteudo     string    `gorm:"size:255;not null;" json:"content"`
-	Autor        Usuario   `json:"author"`
-	IDDoAutor    uint32    `gorm:"not null" json:"author_id"`
+	Titulo       string    `gorm:"size:255;not null;unique" json:"titulo"`
+	Conteudo     string    `gorm:"size:255;not null;" json:"conteudo"`
+	Autor        Usuario   `json:"autor"`
+	IDDoAutor    uint32    `gorm:"not null" json:"id_do_autor"`
 	CriadoEm     time.Time `gorm:"default:CURRENT_TIMESTAMP" json:"criadoEm"`
 	AtualizadoEm time.Time `gorm:"default:CURRENT_TIMESTAMP" json:"atualizadoEm"`
 }
@@ -117,7 +117,7 @@ func (p *Post) AtualizarPost(db *gorm.DB) (*Post, error) {
 //ExcluirPost : Deleta Post na base de dados
 func (p *Post) ExcluirPost(db *gorm.DB, pid uint64, uid uint32) (int64, error) {
 
-	db = db.Debug().Model(&Post{}).Where("id = ? and author_id = ?", pid, uid).Take(&Post{}).Delete(&Post{})
+	db = db.Debug().Model(&Post{}).Where("id = ? and id_do_autor = ?", pid, uid).Take(&Post{}).Delete(&Post{})
 
 	if db.Error != nil {
 		if gorm.IsRecordNotFoundError(db.Error) {

@@ -12,7 +12,7 @@
             "remotePath": "",
             "port": "8080",
             "host": "127.0.0.1",
-            "program": "${workspaceRoot}\\gofullstack",
+            "program": "${workspaceRoot}",
             "env": {},
             "args": [],
             "showLog": true
